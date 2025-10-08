@@ -215,10 +215,14 @@ function TaskManager({ onLogout }) {
           </li>
         ))}
       </ul>
+      <div className="taskmanager-input-section">
+        <button onClick={clearAllTasks} style={{ background: "red" }}>
+          Clear all tasks
+        </button>
+      </div>
 
       {/* Bottom Actions
       <div className="task-actions">
-        <button onClick={clearAllTasks}>Clear all tasks</button>
         <button onClick={onLogout}>Logout</button>
       </div>
        */}
