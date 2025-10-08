@@ -1,0 +1,237 @@
+.taskmanager-container {
+  min-height: 100vh;
+  min-width: 100vw;
+  background: linear-gradient(115deg, #645853 60%, #cad8de 100%);
+  color: #241909;
+  display: flex;
+  flex-direction: column;
+  font-family: "Poppins", sans-serif;
+}
+
+.taskmanager-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 2rem;
+  background: #645853;
+  box-shadow: 0 2px 6px #3e2a3540;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.taskmanager-header h1 {
+  font-size: 1.8rem;
+  color: #00f6ed;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.logout-btn {
+  background: #00f6ed;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  color: #241909;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.25s, color 0.25s;
+}
+
+.logout-icon {
+  font-size: 1.8rem;
+  color: #241909;
+  transition: color 0.3s;
+}
+
+.logout-btn:hover,
+.logout-btn:focus {
+  background: #241909;
+  color: #00f6ed;
+}
+
+.logout-btn:hover .logout-icon {
+  color: #cad8de;
+}
+
+.taskmanager-input-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.taskmanager-input-section input {
+  flex: 1;
+  min-width: 250px;
+  padding: 0.8rem 1rem;
+  border: 1.5px solid #cad8de;
+  border-radius: 8px;
+  background: #fff;
+  color: #645853;
+  font-size: 1.04rem;
+  outline: none;
+  box-shadow: 0 3px 10px #3e2a3533;
+}
+
+.taskmanager-input-section button {
+  background: #00f6ed;
+  border: none;
+  padding: 0.8rem 1.15rem;
+  border-radius: 8px;
+  color: #241909;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s, color 0.2s;
+}
+
+.taskmanager-input-section button:hover {
+  background: #241909;
+  color: #00f6ed;
+}
+
+.taskmanager-stats {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding: 1rem 0;
+  text-align: center;
+}
+
+.taskmanager-stats h4 {
+  background: #90817a;
+  color: #cad8de;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  font-weight: 600;
+  box-shadow: 0 2px 6px #3e2a3526;
+}
+
+.taskmanager-filter {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+.taskmanager-filter select {
+  background: #645853;
+  border: 1.5px solid #cad8de;
+  border-radius: 8px;
+  padding: 0.65rem 1.1rem;
+  color: #cad8de;
+  font-size: 1.04rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.taskmanager-filter select:focus {
+  border-color: #00f6ed;
+}
+
+.taskmanager-list {
+  width: 90%;
+  max-width: 900px;
+  margin: 1.3rem auto 2rem;
+  list-style: none;
+  padding: 0;
+}
+
+.taskmanager-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  color: #241909;
+  padding: 1.05rem 1.3rem;
+  border-radius: 12px;
+  margin-bottom: 0.8rem;
+  box-shadow: 0 2px 6px #3e2a3536;
+  transition: background 0.25s, transform 0.22s;
+}
+
+.taskmanager-list li:hover {
+  background: #00f6ed;
+  transform: translateY(-2px) scale(1.0125);
+}
+
+.task-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.task-left span {
+  word-wrap: break-word;
+  font-size: 1.02rem;
+  color: #241909;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: #645853 !important;
+}
+
+.task-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.task-right button {
+  background: #00f6ed;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 7px;
+  color: #241909;
+  font-size: 0.97rem;
+  cursor: pointer;
+  font-weight: 500;
+  box-shadow: 0 1px 4px #3e2a3522;
+  transition: background 0.22s, color 0.22s;
+}
+
+.task-right button:hover {
+  background: #241909;
+  color: #00f6ed;
+}
+
+.taskmanager-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding-bottom: 2rem;
+}
+
+.taskmanager-actions button {
+  background: #00f6ed;
+  border: none;
+  padding: 0.8rem 1.3rem;
+  border-radius: 8px;
+  color: #241909;
+  cursor: pointer;
+  transition: background 0.25s, color 0.2s;
+}
+
+.taskmanager-actions button:hover {
+  background: #241909;
+  color: #00f6ed;
+}
+
+@media (max-width: 600px) {
+  .taskmanager-list li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .task-right {
+    margin-top: 0.5rem;
+    width: 100%;
+    justify-content: flex-end;
+  }
+}

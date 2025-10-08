@@ -1,0 +1,131 @@
+/* === Scoped Auth Styles === */
+
+/* 🧱 Background Root */
+.auth-root {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ecf0f3; /*fallback color while video loads */
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* 🎥 Video Background Layer */
+.auth-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.6; /* control video brightness */
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* 🔳 Foreground Auth Card */
+.auth-card {
+  position: relative;
+  z-index: 1;
+  background: #ecf0f3; /* ✅ solid, no transparency */
+  border-radius: 15px;
+  box-shadow: 10px 10px 10px 10px, burlywood;
+  width: 350px;
+  padding: 40px 30px;
+  text-align: center;
+  animation: slideUp 0.6s ease;
+}
+
+/* ✨ Animations */
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* 🧩 Header */
+.auth-header {
+  margin-bottom: 25px;
+}
+
+.auth-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.auth-header h2 {
+  margin: 0;
+  font-weight: 600;
+  color: #333;
+}
+
+.auth-header p {
+  margin-top: 4px;
+  color: #777;
+  font-size: 14px;
+}
+
+/* 🧱 Input Fields */
+.auth-field {
+  margin-bottom: 18px;
+  text-align: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-field input,
+.auth-field select {
+  width: 100%;
+  padding: 12px 15px;
+  border: none;
+  outline: none;
+  border-radius: 12px;
+  background: #ecf0f3;
+  box-shadow: inset 2px 2px 5px #cbced1, inset -2px -2px 5px #ffffff;
+  font-size: 14px;
+  color: #333;
+}
+
+/* 🔘 Buttons */
+.auth-btn {
+  width: 100%;
+  background: #ecf0f3;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: -3px -3px 7px #ffffff, 3px 3px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.auth-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: -3px -3px 7px #ffffff, 3px 3px 8px rgba(0, 0, 0, 0.2);
+  background-color: black;
+  color: whitesmoke;
+}
+
+/* 🔁 Switch Text */
+.auth-switch {
+  margin-top: 20px;
+  color: #666;
+  font-size: 14px;
+}
+
+.link {
+  color: #007bff;
+  cursor: pointer;
+  font-weight: 500;
+}
