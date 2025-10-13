@@ -2,6 +2,7 @@
 import { useState } from "react";
 import axios from "axios";
 import "./Auth.css";
+import Swal from "sweetalert2";
 
 function Signup({ onSignupSuccess, handleSetShowSignup }) {
   const [name, setName] = useState("");
@@ -17,10 +18,20 @@ function Signup({ onSignupSuccess, handleSetShowSignup }) {
         "http://localhost:5000/api/auth/signup",
         { name, email, password, role }
       );
-      alert(response.data.message);
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: response.data.message,
+        timer: 2000,
+        showConfirmButton: false,
+      });
       onSignupSuccess();
     } catch (error) {
-      alert(error.response?.data?.message || "Signup failed");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error.response?.data?.message || "Signup failed",
+      });
     }
   }
 

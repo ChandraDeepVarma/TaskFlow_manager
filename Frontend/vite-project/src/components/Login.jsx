@@ -2,6 +2,7 @@
 import { useState } from "react";
 import axios from "axios";
 import "./Auth.css";
+import Swal from "sweetalert2";
 
 function Login({ onLoginSuccess, handleSetShowSignup }) {
   const [email, setEmail] = useState("");
@@ -17,10 +18,19 @@ function Login({ onLoginSuccess, handleSetShowSignup }) {
       );
 
       localStorage.setItem("token", response.data.token);
-      alert("Login successful!");
+      Swal.fire({
+        icon: "success",
+        title: "Login Successful",
+        timer: 2000,
+        showConfirmButton: false,
+      });
       onLoginSuccess();
     } catch (error) {
-      alert(error.response?.data?.message || "Login failed");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error.response?.data?.message || "Login failed",
+      });
     }
   }
 
