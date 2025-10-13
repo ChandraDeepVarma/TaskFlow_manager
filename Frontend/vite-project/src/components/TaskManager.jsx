@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { FiLogOut } from "react-icons/fi"; // or import { LogOut } from "lucide-react"
+import Swal from "sweetalert2";
 import "./TaskManager.css";
 
 function TaskManager({ onLogout }) {
@@ -48,14 +49,20 @@ function TaskManager({ onLogout }) {
 
   async function addTask() {
     if (task.trim() === "") {
-      alert("Task cannot be Empty");
+      Swal.fire({
+        icon: "warning",
+        title: "Empty Task",
+        text: "Task cannot be empty!",
+        timer: 1500,
+        showConfirmButton: false,
+      });
       return;
     }
+
     try {
       if (editIndex !== null) {
-        // Update existing task
+        // ✅ Update existing task
         const taskToUpdate = tasks[editIndex];
-
         const response = await axiosInstance.put(
           `/api/tasks/${taskToUpdate.id}`,
           {
@@ -68,23 +75,56 @@ function TaskManager({ onLogout }) {
         copy[editIndex] = response.data.task;
         setTasks(copy);
         setEditIndex(null);
+
+        Swal.fire({
+          icon: "success",
+          title: "Task Updated!",
+          showConfirmButton: false,
+          timer: 1200,
+        });
       } else {
-        // Add new task
+        // ✅ Add new task
         const response = await axiosInstance.post("/api/tasks", {
           task: task,
           completed: false,
         });
 
-        setTasks([...tasks, response.data.task]);
+        setTasks([response.data.task, ...tasks]);
+
+        Swal.fire({
+          icon: "success",
+          title: "Task Added!",
+          showConfirmButton: false,
+          timer: 1200,
+        });
       }
+
       setTask("");
     } catch (error) {
       console.log("Cannot add/edit task", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: "Something went wrong while saving your task.",
+      });
     }
   }
 
   async function deleteTask(indexRemove) {
     const taskToDelete = tasks[indexRemove];
+
+    // SweetAlert confirmation
+    const confirmDelete = await Swal.fire({
+      title: "Delete this task?",
+      text: `"${taskToDelete.task}" will be permanently removed.`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (!confirmDelete.isConfirmed) return;
 
     try {
       await axiosInstance.delete(`/api/tasks/${taskToDelete.id}`);
@@ -92,9 +132,21 @@ function TaskManager({ onLogout }) {
       const updatedTask = [...tasks];
       updatedTask.splice(indexRemove, 1);
       setTasks(updatedTask);
+
+      Swal.fire({
+        icon: "success",
+        title: "Deleted!",
+        text: "Task has been deleted successfully.",
+        timer: 1500,
+        showConfirmButton: false,
+      });
     } catch (error) {
       console.log("Error !! deleting task", error);
-      alert("failed to delete task, Try again later.");
+      Swal.fire({
+        icon: "error",
+        title: "Failed!",
+        text: "Could not delete task. Try again later.",
+      });
     }
   }
 
@@ -114,7 +166,12 @@ function TaskManager({ onLogout }) {
       setTasks(updatedTasks);
     } catch (error) {
       console.log("Error !! , task cannot be updated", error);
-      alert("Task cannot be updated");
+      Swal.fire({
+        icon: "error",
+        title: "Update Failed",
+        text: "Task could not be updated. Please try again.",
+        confirmButtonColor: "#6c63ff",
+      });
     }
   }
 
@@ -124,20 +181,36 @@ function TaskManager({ onLogout }) {
   }
 
   async function clearAllTasks() {
-    const confirmClear = window.confirm(
-      "Are you sure ? All the tasks will be deleted permanently"
-    );
-
-    if (!confirmClear) return;
-
-    try {
-      await axiosInstance.delete("/api/tasks");
-      setTasks([]);
-      alert("all tasks are deleted Successfully");
-    } catch (error) {
-      console.log("ERROR !! Couldn't clear tasks", error);
-      alert("Error clearing tasks, Try again Later");
-    }
+    Swal.fire({
+      title: "Are you sure?",
+      text: "All tasks will be deleted permanently.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#ff6b6b",
+      cancelButtonColor: "#6c63ff",
+      confirmButtonText: "Yes, delete all!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await axiosInstance.delete("/api/tasks");
+          setTasks([]);
+          Swal.fire({
+            icon: "success",
+            title: "Cleared!",
+            text: "All tasks have been deleted.",
+            confirmButtonColor: "#6c63ff",
+          });
+        } catch (error) {
+          console.log("ERROR !! Couldn't clear tasks", error);
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Error clearing tasks. Try again later.",
+            confirmButtonColor: "#6c63ff",
+          });
+        }
+      }
+    });
   }
 
   const filteredTasks = tasks.filter((task) => {

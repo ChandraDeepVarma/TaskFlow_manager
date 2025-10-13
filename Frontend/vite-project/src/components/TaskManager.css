@@ -235,3 +235,8 @@
     justify-content: flex-end;
   }
 }
+.swal2-popup {
+  border-radius: 1rem !important;
+  backdrop-filter: blur(6px);
+  background: rgba(255, 255, 255, 0.95) !important;
+}
